@@ -88,13 +88,6 @@ export default defineComponent<FixedHeaderProps<DefaultRecordType>>({
       wheelEvent.value?.remove();
     });
 
-    // Check if all flattenColumns has width
-    const allFlattenColumnsWithWidth = computed(() =>
-      props.flattenColumns.every(
-        column => column.width && column.width !== 0 && column.width !== '0px',
-      ),
-    );
-
     const columnsWithScrollbar = ref<ColumnsType<unknown>>([]);
     const flattenColumnsWithScrollbar = ref<ColumnsType<unknown>>([]);
 
@@ -139,14 +132,7 @@ export default defineComponent<FixedHeaderProps<DefaultRecordType>>({
     const mergedColumnWidth = useColumnWidth(toRef(props, 'colWidths'), toRef(props, 'columCount'));
 
     return () => {
-      const {
-        noData,
-        columCount,
-        stickyTopOffset,
-        stickyBottomOffset,
-        stickyClassName,
-        maxContentScroll,
-      } = props;
+      const { noData, columCount, stickyTopOffset, stickyBottomOffset, stickyClassName } = props;
       const { isSticky } = tableContext;
       return (
         <div
@@ -165,17 +151,15 @@ export default defineComponent<FixedHeaderProps<DefaultRecordType>>({
               visibility: noData || mergedColumnWidth.value ? null : 'hidden',
             }}
           >
-            {(!noData || !maxContentScroll || allFlattenColumnsWithWidth.value) && (
-              <ColGroup
-                colWidths={
-                  mergedColumnWidth.value
-                    ? [...mergedColumnWidth.value, combinationScrollBarSize.value]
-                    : []
-                }
-                columCount={columCount + 1}
-                columns={flattenColumnsWithScrollbar.value}
-              />
-            )}
+            <ColGroup
+              colWidths={
+                mergedColumnWidth.value
+                  ? [...mergedColumnWidth.value, combinationScrollBarSize.value]
+                  : []
+              }
+              columCount={columCount + 1}
+              columns={flattenColumnsWithScrollbar.value}
+            />
             {slots.default?.({
               ...props,
               stickyOffsets: headerStickyOffsets.value,
