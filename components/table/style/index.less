@@ -99,7 +99,9 @@
           text-align: center;
         }
 
-        &:not(:last-child):not(.@{table-prefix-cls}-selection-column):not(.@{table-prefix-cls}-row-expand-icon-cell):not([colspan])::before {
+        &:not(:last-child):not(.@{table-prefix-cls}-selection-column):not(
+            .@{table-prefix-cls}-row-expand-icon-cell
+          ):not([colspan])::before {
           position: absolute;
           top: 50%;
           right: 0;
@@ -702,11 +704,11 @@
     &-scroll {
       position: sticky;
       bottom: 0;
+      height: 0;
       z-index: @table-sticky-zindex;
       display: flex;
       align-items: center;
       background: lighten(@table-border-color, 80%);
-      border-top: 1px solid @table-border-color;
       opacity: 0.6;
 
       &:hover {
@@ -715,6 +717,7 @@
 
       &-bar {
         height: 8px;
+        margin-top: calc(var(--scroll-bar-height, 8px) * -1);
         background-color: @table-sticky-scroll-bar-bg;
         border-radius: @table-sticky-scroll-bar-radius;
 

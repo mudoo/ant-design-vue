@@ -110,7 +110,7 @@ export default defineComponent<StickyScrollBarProps>({
           : getOffset(props.container).top + (props.container as HTMLElement).clientHeight;
 
       if (
-        tableBottomOffset - getScrollBarSize() <= currentClientOffset ||
+        tableBottomOffset <= currentClientOffset ||
         tableOffsetTop >= currentClientOffset - props.offsetScroll
       ) {
         setScrollState(state => ({
@@ -220,7 +220,7 @@ export default defineComponent<StickyScrollBarProps>({
       return (
         <div
           style={{
-            height: `${scrollbarSize}px`,
+            '--scroll-bar-height': `${scrollbarSize}px`,
             width: `${bodyWidth.value}px`,
             bottom: `${props.offsetScroll}px`,
           }}
