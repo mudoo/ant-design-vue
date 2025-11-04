@@ -192,7 +192,7 @@ export default defineComponent<TableProps<DefaultRecordType>>({
     'onUpdateInternalRefs',
     'transformCellText',
   ] as any,
-  slots: ['title', 'footer', 'summary', 'emptyText'],
+  slots: ['title', 'footer', 'summary', 'footRows', 'emptyText'],
   emits: ['expand', 'expandedRowsChange', 'updateInternalRefs', 'update:expandedRowKeys'],
   setup(props, { attrs, slots, emit }) {
     const mergedData = computed(() => props.data || EMPTY_DATA);
@@ -628,7 +628,7 @@ export default defineComponent<TableProps<DefaultRecordType>>({
         getRowKey={getRowKey.value}
         customRow={props.customRow}
         childrenColumnName={mergedChildrenColumnName.value}
-        v-slots={{ emptyNode }}
+        v-slots={{ emptyNode, footRows: slots.footRows }}
       />
     );
 

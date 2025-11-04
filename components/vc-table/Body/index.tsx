@@ -139,6 +139,7 @@ export default defineComponent<BodyProps<any>>({
           )}
 
           {rows}
+          {slots.footRows?.()}
         </WrapperComponent>
       );
     };

@@ -248,6 +248,7 @@ const InteralTable = defineComponent<
     'expandIcon',
     'title',
     'footer',
+    'footRows',
     'summary',
     'expandedRowRender',
     'bodyCell',
