@@ -1,4 +1,5 @@
 <template>
+  <Mentorbook />
   <Header />
   <div class="main-wrapper">
     <a-row>
@@ -37,30 +38,30 @@
       </template>
       <a-col :xxxl="20" :xxl="20" :xl="19" :lg="18" :md="18" :sm="24" :xs="24">
         <section :class="mainContainerClass">
-          <WWAdsVue v-if="isZhCN" />
-          <TopAd v-else />
           <Demo v-if="isDemo" :page-data="pageData" :is-zh-c-n="isZhCN">
             <component :is="matchCom" />
           </Demo>
           <router-view v-else />
-          <a-affix v-if="headers.length" class="toc-affix" :offset-top="20">
-            <a-anchor>
-              <a-anchor-link
-                v-for="h in headers"
-                :key="h.title"
-                :href="h.href || `#${slugifyTitle(h.title)}`"
-                :target="h.target"
-              >
-                <template #title>
-                  <LinkOutlined v-if="h.target" />
-                  {{ isZhCN ? h.title : h.enTitle || h.title }}
-                </template>
-              </a-anchor-link>
-            </a-anchor>
-          </a-affix>
+          <div class="toc-affix">
+            <a-affix v-if="headers.length" :offset-top="20">
+              <a-anchor>
+                <a-anchor-link
+                  v-for="h in headers"
+                  :key="h.title"
+                  :href="h.href || `#${slugifyTitle(h.title)}`"
+                  :target="h.target"
+                >
+                  <template #title>
+                    <LinkOutlined v-if="h.target" />
+                    {{ isZhCN ? h.title : h.enTitle || h.title }}
+                  </template>
+                </a-anchor-link>
+              </a-anchor>
+            </a-affix>
+          </div>
         </section>
         <a-back-top />
-        <div class="fixed-widgets" :style="isZhCN ? { bottom: '175px' } : {}">
+        <div class="fixed-widgets" :style="{ bottom: '205px' }">
           <a-dropdown placement="top">
             <template #overlay>
               <a-menu
@@ -80,6 +81,7 @@
         <Footer />
       </a-col>
     </a-row>
+    <RightBottomAd />
   </div>
 </template>
 <script lang="ts">
@@ -93,21 +95,18 @@ import Menu from './Menu.vue';
 import PrevAndNext from './PrevAndNext.vue';
 import Demo from './Demo.vue';
 import useMenus from '../hooks/useMenus';
-import TopAd from '../components/rice/top_rice.vue';
 import Sponsors from '../components/rice/sponsors.vue';
-import RightBottomAd from '../components/rice/right_bottom_rice.vue';
+import RightBottomAd from '../components/rice/right_bottom_ad.vue';
 import { CloseOutlined, MenuOutlined, LinkOutlined } from '@ant-design/icons-vue';
 import ThemeIcon from './ThemeIcon.vue';
 import surelyVueVue from '../components/surelyVue.vue';
-import WWAdsVue from '../components/rice/WWAds.vue';
-
+import Mentorbook from '../components/rice/mentorbook.vue';
 const rControl = /[\u0000-\u001f]/g;
 const rSpecial = /[\s~`!@#$%^&*()\-_+=[\]{}|\\;:"'<>,.?/]+/g;
 
 export default defineComponent({
   name: 'Layout',
   components: {
-    TopAd,
     Sponsors,
     RightBottomAd,
     Demo,
@@ -119,8 +118,8 @@ export default defineComponent({
     MenuOutlined,
     ThemeIcon,
     surelyVueVue,
-    WWAdsVue,
     LinkOutlined,
+    Mentorbook,
   },
   setup() {
     const visible = ref(false);
@@ -176,25 +175,25 @@ export default defineComponent({
               {
                 title: '大数据渲染',
                 enTitle: 'Virtualized Table',
-                href: 'https://surely.cool/doc/performance',
+                href: 'https://surelyvue.com/doc/performance',
                 target: '_blank',
               },
               {
                 title: '行拖拽排序',
                 enTitle: 'Row Drag Sort',
-                href: 'https://surely.cool/doc/dragable#drag-row',
+                href: 'https://surelyvue.com/doc/dragable#drag-row',
                 target: '_blank',
               },
               {
                 title: '列拖拽排序',
                 enTitle: 'Column Drag Sort',
-                href: 'https://surely.cool/doc/dragable#drag-column',
+                href: 'https://surelyvue.com/doc/dragable#drag-column',
                 target: '_blank',
               },
               {
                 title: '更多高性能示例',
                 enTitle: 'More high-performance examples ',
-                href: 'https://surely.cool',
+                href: 'https://surelyvue.com',
                 target: '_blank',
               },
             ],
