@@ -355,7 +355,7 @@ export default defineComponent<TableProps<DefaultRecordType>>({
     );
 
     // Sticky
-    const stickyRef = ref<{ setScrollLeft: (left: number) => void }>();
+    const stickyRef = ref<{ setScrollLeft: (left: number) => void; triggerScroll: () => void }>();
     const stickyState = useSticky(toRef(props, 'sticky'), toRef(props, 'prefixCls'));
 
     const summaryFixedInfos = reactive<Record<string, boolean | string>>({});
@@ -467,6 +467,7 @@ export default defineComponent<TableProps<DefaultRecordType>>({
     const triggerOnScroll = () => {
       if (horizonScroll.value && scrollBodyRef.value) {
         onScroll({ currentTarget: scrollBodyRef.value });
+        stickyRef.value?.triggerScroll();
       } else {
         setPingedLeft(false);
         setPingedRight(false);

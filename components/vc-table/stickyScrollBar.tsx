@@ -136,6 +136,7 @@ export default defineComponent<StickyScrollBarProps>({
 
     expose({
       setScrollLeft,
+      triggerScroll: onContainerScroll,
     });
     let onMouseUpListener = null;
     let onMouseMoveListener = null;
